@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.study.sharding.dao.briefly.TaskDataSubmitRecordBrieflyDao">
+    <resultMap id="syncBriefly" type="com.study.sharding.entity.briefly.TaskDataSubmitRecordBrieflyPO">
+        <id column="task_data_submit_record_id" jdbcType="INTEGER" property="taskDataSubmitRecordId"/>
+        <result column="task_data_id" jdbcType="INTEGER" property="taskDataId"/>
+        <result column="task_id" jdbcType="INTEGER" property="taskId"/>
+        <result column="sdk_app_id" jdbcType="INTEGER" property="sdkAppId"/>
+        <result column="sdk_app_user_id" jdbcType="VARCHAR" property="sdkAppUserId"/>
+        <result column="device_id" jdbcType="VARCHAR" property="deviceId"/>
+        <result column="imei" jdbcType="VARCHAR" property="imei"/>
+        <result column="imsi" jdbcType="VARCHAR" property="imsi"/>
+        <result column="task_data_review_status" jdbcType="INTEGER" property="taskDataReviewStatus"/>
+<!--        <result column="task_data_submit_record_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"-->
+<!--                property="time"/>-->
+        <result column="task_data_cybemoney" jdbcType="VARCHAR" property="taskDataCybemoney"/>
+    </resultMap>
+
+    <select id="getPo" resultMap="syncBriefly">
+        select *  FROM
+            task_data_submit_record_briefly LEFT join task_data  on task_data_submit_record_briefly.task_data_id = task_data.task_data_id
+        where task_data_submit_record_briefly.task_data_submit_record_id = #{id}
+    </select>
+
+    <select id="getTask" resultMap="syncBriefly">
+        select *  FROM
+            task_data
+        where task_data_id = #{id}
+    </select>
+
+    <select id="get" resultMap="syncBriefly">
+        select *  FROM
+            task_data_submit_record_briefly
+        where task_data_submit_record_briefly.task_data_submit_record_id = #{id}
+    </select>
+
+</mapper>
